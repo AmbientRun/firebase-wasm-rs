@@ -1,3 +1,4 @@
+use crate::app::FirebaseApp;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use wasm_bindgen::prelude::*;
@@ -62,7 +63,7 @@ extern "C" {
     pub type TaskState;
 
     #[wasm_bindgen(js_name = getStorage)]
-    pub fn get_storage() -> Storage;
+    pub fn get_storage(app: Option<&FirebaseApp>, bucket_url: Option<&str>) -> Storage;
 
     #[wasm_bindgen(js_name = ref)]
     pub fn ref_(storage: Storage, path: &str) -> Ref;

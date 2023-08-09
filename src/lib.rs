@@ -30,6 +30,19 @@ pub mod storage;
 use std::{error::Error, fmt};
 use wasm_bindgen::prelude::*;
 
+pub mod app {
+    use wasm_bindgen::prelude::*;
+
+    #[wasm_bindgen(module = "firebase/app")]
+    extern "C" {
+        #[derive(Clone, Debug)]
+        pub type FirebaseApp;
+
+        #[wasm_bindgen(js_name = "getApp")]
+        pub fn get_app() -> FirebaseApp;
+    }
+}
+
 impl fmt::Display for FirebaseError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         self.message().fmt(f)
