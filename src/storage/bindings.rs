@@ -51,7 +51,9 @@ pub fn upload_bytes(
 
 #[wasm_bindgen(module = "firebase/storage")]
 extern "C" {
+    #[derive(Clone, Debug)]
     pub type Storage;
+    #[derive(Clone, Debug)]
     pub type Ref;
     pub type UploadTask;
     pub type UploadTaskSnapshot;
@@ -193,4 +195,24 @@ extern "C" {
 
     #[wasm_bindgen(method, getter, js_name = ref)]
     pub fn ref_(this: &FullMetadata) -> Option<Ref>;
+
+    // =========================================================================
+    //                            Ref
+    // =========================================================================
+
+    #[wasm_bindgen(method, getter, js_name = fullPath)]
+    pub fn full_path(this: &Ref) -> String;
+
+    #[wasm_bindgen(method, getter)]
+    pub fn bucket(this: &Ref) -> String;
+
+    #[wasm_bindgen(method, getter)]
+    pub fn name(this: &Ref) -> String;
 }
+
+impl PartialEq for Ref {
+    fn eq(&self, other: &Self) -> bool {
+        self.full_path() == other.full_path() && self.bucket() == other.bucket()
+    }
+}
+impl Eq for Ref {}
