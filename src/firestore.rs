@@ -313,3 +313,8 @@ impl From<SystemTime> for Timestamp {
         )
     }
 }
+impl Default for Timestamp {
+    fn default() -> Self {
+        Timestamp::now()
+    }
+}
