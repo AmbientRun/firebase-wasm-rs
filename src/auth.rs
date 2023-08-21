@@ -195,6 +195,12 @@ pub async fn confirm_password_reset(
         .map_err(|err| err.unchecked_into::<FirebaseError>().into())
 }
 
+pub async fn update_email(user: &User, email: String) -> Result<(), JsValue> {
+    update_email_js(user, email)
+        .await
+        .map_err(|err| err.unchecked_into::<FirebaseError>().into())
+}
+
 #[wasm_bindgen_struct]
 #[opts(module = "firebase/auth", getter)]
 #[derive(Clone, Debug)]
@@ -265,4 +271,7 @@ extern "C" {
         code: String,
         new_password: String,
     ) -> Result<(), JsValue>;
+
+    #[wasm_bindgen(js_name = updateEmail, catch)]
+    async fn update_email_js(user: &User, new_email: String) -> Result<(), JsValue>;
 }
