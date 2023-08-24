@@ -201,3 +201,10 @@ impl PartialEq for DocumentReference {
     }
 }
 impl Eq for DocumentReference {}
+
+impl PartialEq for Query {
+    fn eq(&self, other: &Self) -> bool {
+        format!("{:?}", self) == format!("{:?}", other)
+    }
+}
+impl Eq for Query {}
