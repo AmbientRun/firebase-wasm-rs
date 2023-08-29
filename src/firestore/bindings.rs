@@ -1,5 +1,5 @@
 use crate::FirebaseError;
-use js_sys::Date;
+use js_sys::{Date, Object};
 use wasm_bindgen::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default)]
@@ -204,7 +204,12 @@ impl Eq for DocumentReference {}
 
 impl PartialEq for Query {
     fn eq(&self, other: &Self) -> bool {
-        format!("{:?}", self) == format!("{:?}", other)
+        fn to_str(q: &Query) -> Option<String> {
+            let q = q.dyn_ref::<Object>()?;
+            let q = js_sys::Reflect::get(&q, &"_query".into()).ok()?;
+            Some(format!("{:?}", q))
+        }
+        to_str(self) == to_str(other)
     }
 }
 impl Eq for Query {}
