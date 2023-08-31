@@ -1,5 +1,5 @@
 use crate::FirebaseError;
-use js_sys::{Date, Object};
+use js_sys::Date;
 use wasm_bindgen::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default)]
@@ -186,6 +186,16 @@ extern "C" {
 
     #[wasm_bindgen(method, getter)]
     pub fn id(this: &DocumentReference) -> String;
+
+    #[wasm_bindgen(js_name = refEqual)]
+    pub(crate) fn ref_equal(left: &DocumentReference, right: &DocumentReference) -> bool;
+
+    // =========================================================================
+    //                            Query
+    // =========================================================================
+
+    #[wasm_bindgen(js_name = queryEqual)]
+    pub(crate) fn query_equal(left: &Query, right: &Query) -> bool;
 }
 
 impl PartialEq for Timestamp {
@@ -197,19 +207,14 @@ impl Eq for Timestamp {}
 
 impl PartialEq for DocumentReference {
     fn eq(&self, other: &Self) -> bool {
-        self.path() == other.path()
+        ref_equal(self, other)
     }
 }
 impl Eq for DocumentReference {}
 
 impl PartialEq for Query {
     fn eq(&self, other: &Self) -> bool {
-        fn to_str(q: &Query) -> Option<String> {
-            let q = q.dyn_ref::<Object>()?;
-            let q = js_sys::Reflect::get(&q, &"_query".into()).ok()?;
-            Some(format!("{:?}", q))
-        }
-        to_str(self) == to_str(other)
+        query_equal(self, other)
     }
 }
 impl Eq for Query {}
