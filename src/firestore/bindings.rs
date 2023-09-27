@@ -87,7 +87,7 @@ extern "C" {
     #[wasm_bindgen]
     pub fn limit(number: i32) -> QueryConstraint;
 
-    #[wasm_bindgen]
+    #[wasm_bindgen(js_name = "startAfter")]
     pub fn start_after(doc: DocumentReference) -> QueryConstraint;
 
     #[wasm_bindgen(js_name = deleteDoc, catch)]
