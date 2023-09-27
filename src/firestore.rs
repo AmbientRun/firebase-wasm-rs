@@ -4,8 +4,8 @@ use crate::FirebaseError;
 use bindings as b;
 pub use bindings::{
     add_doc, delete_doc, doc, get_firestore, limit, on_snapshot_doc, on_snapshot_query, query,
-    set_doc, update_doc, CollectionReference, DocumentReference, DocumentSnapshot, Firestore,
-    Query, QueryConstraint, QuerySnapshot, SetDocOptions, Timestamp, Transaction,
+    set_doc, start_after, update_doc, CollectionReference, DocumentReference, DocumentSnapshot,
+    Firestore, Query, QueryConstraint, QuerySnapshot, SetDocOptions, Timestamp, Transaction,
 };
 use futures::Future;
 use std::{cell::RefCell, error::Error, fmt, rc::Rc, time::SystemTime};
