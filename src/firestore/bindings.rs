@@ -165,6 +165,9 @@ extern "C" {
     #[wasm_bindgen(js_namespace = Timestamp)]
     pub fn now() -> Timestamp;
 
+    #[wasm_bindgen(js_namespace = Timestamp, js_name = serverTimestamp)]
+    pub fn server_timestamp() -> Timestamp;
+    
     #[wasm_bindgen(js_namespace = Timestamp, js_name = fromDate)]
     pub fn from_date(date: &Date) -> Timestamp;
 
