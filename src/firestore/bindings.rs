@@ -28,6 +28,8 @@ extern "C" {
     pub type Transaction;
     #[derive(Clone, Debug)]
     pub type Timestamp;
+    #[derive(Clone, Debug)]
+    pub type FieldValue;
 
     #[wasm_bindgen(js_name = getFirestore)]
     pub fn get_firestore() -> Firestore;
@@ -99,6 +101,9 @@ extern "C" {
         update_fn: &Closure<dyn FnMut(Transaction) -> js_sys::Promise>,
     ) -> Result<(), JsValue>;
 
+    #[wasm_bindgen(js_name = serverTimestamp)]
+    pub fn server_timestamp() -> FieldValue;
+
     // =========================================================================
     //                            QuerySnapshot
     // =========================================================================
@@ -165,9 +170,6 @@ extern "C" {
     #[wasm_bindgen(js_namespace = Timestamp)]
     pub fn now() -> Timestamp;
 
-    #[wasm_bindgen(js_namespace = Timestamp, js_name = serverTimestamp)]
-    pub fn server_timestamp() -> Timestamp;
-    
     #[wasm_bindgen(js_namespace = Timestamp, js_name = fromDate)]
     pub fn from_date(date: &Date) -> Timestamp;
 
